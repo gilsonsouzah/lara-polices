@@ -3,7 +3,7 @@
 namespace LaraPolices\Middlewares;
 
 use Closure;
-use ClassPreloader\Config;
+use Config;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,9 +30,9 @@ class PolicesMiddleware
 
                 if (!$police->canMakeAction($request, $action)) {
                     if ($request->ajax()) {
-                        return response(Config::get('polices.defaultForbiddenMessage', 'Forbidden'), 403);
+                        return response(403, Config::get('polices.defaultForbiddenMessage', 'Forbidden'));
                     } else {
-                        App::abort(Config::get('polices.defaultForbiddenMessage', 'Forbidden'), 403);
+                        App::abort(403, Config::get('polices.defaultForbiddenMessage', 'Forbidden'));
                     }
                 }
             }
