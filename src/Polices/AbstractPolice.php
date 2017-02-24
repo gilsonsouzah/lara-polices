@@ -10,7 +10,8 @@ use LaraPolices\Exceptions\ObjectNotFoundException;
 abstract class AbstractPolice
 {
     /**
-     * Define the Autenticatable Interface
+     * Define the Autenticatable Interface.
+     *
      * @var Authenticatable
      */
     protected $user;
@@ -18,11 +19,12 @@ abstract class AbstractPolice
     /**
      * @var array Objects storage
      */
-    private $objects = array();
+    private $objects = [];
 
     /**
      * AbstractPolice constructor.
-     * @param Request $request
+     *
+     * @param Request         $request
      * @param Authenticatable $user
      */
     public function __construct(Authenticatable $user)
@@ -31,9 +33,10 @@ abstract class AbstractPolice
     }
 
     /**
-     * Store object in police
+     * Store object in police.
      *
      * @param mixed $object
+     *
      * @return $this
      */
     public function pushObject($object)
@@ -45,11 +48,13 @@ abstract class AbstractPolice
     }
 
     /**
-     * Get object from police
+     * Get object from police.
      *
      * @param $name
-     * @return mixed
+     *
      * @throws ObjectNotFoundException
+     *
+     * @return mixed
      */
     public function getObject($name)
     {
@@ -60,7 +65,7 @@ abstract class AbstractPolice
                 return $this->getObject($name);
             }
 
-            throw new ObjectNotFoundException("Object not found.");
+            throw new ObjectNotFoundException('Object not found.');
         }
 
         return $this->objects[$name];
@@ -69,8 +74,10 @@ abstract class AbstractPolice
     /**
      * Function to call action method to authorize resource permission to user.
      * This function should be return a boolean.
-     * @param Request $request Request to validate
-     * @param string $actionToValidate Police action to validate
+     *
+     * @param Request $request          Request to validate
+     * @param string  $actionToValidate Police action to validate
+     *
      * @return bool
      */
     public function canMakeAction(Request $request, $actionToValidate)
