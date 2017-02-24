@@ -14,7 +14,8 @@ class PolicesMiddleware
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
+     * @param \Closure                 $next
+     *
      * @return mixed
      */
     public function handle($request, Closure $next)
@@ -33,7 +34,7 @@ class PolicesMiddleware
                     if ($request->ajax()) {
                         return response()->json(
                             [
-                                'error' => Config::get('polices.defaultForbiddenMessage', 'Forbidden')
+                                'error' => Config::get('polices.defaultForbiddenMessage', 'Forbidden'),
                             ],
                             Response::HTTP_FORBIDDEN
                         );
@@ -48,8 +49,10 @@ class PolicesMiddleware
 
     /**
      * Search the action police class based in the controller name.
+     *
      * @param $controller string Namespace of Controller
      * @param $action string Method called by route
+     *
      * @return null|string
      */
     private function findActionPolice($controller, $action)
@@ -59,13 +62,13 @@ class PolicesMiddleware
         if (class_exists($policeClass) && method_exists($policeClass, $action)) {
             return $policeClass;
         }
-
-        return null;
     }
 
     /**
      * Normalize the Police Namespace based on controller name.
+     *
      * @param $controller string Namespace of Controller
+     *
      * @return string
      */
     private function normalizePoliceName($controller)
